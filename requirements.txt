@@ -1,0 +1,26 @@
+pandas>=1.5
+numpy>=1.23
+scipy>=1.10
+scikit-learn>=1.2
+xgboost>=1.7
+lifelines>=0.27
+
+# NLP
+transformers>=4.30
+torch>=2.0
+spacy>=3.5
+nltk>=3.8
+bertopic>=0.15
+
+# Viz
+plotly>=5.14
+dash>=2.10
+matplotlib>=3.6
+seaborn>=0.12
+
+# Explainability
+shap>=0.42
+
+# Data
+requests>=2.31
+SQLAlchemy>=2.0
