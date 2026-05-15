@@ -1,6 +1,15 @@
-# Sierra People Analytics
+# Sierra Napier — People Analytics Portfolio
 
-> **People Analytics & HR Data Science | Attrition Prediction · Workforce Sentiment · DEI Metrics**
+> *"The best time to build AI systems was yesterday. The second best time is now."*
+> — **Sierra Napier, The AI Architect**
+
+**People Analytics & HR Data Science | Attrition Prediction · Workforce Sentiment · DEI Metrics**
+
+[![Portfolio](https://img.shields.io/badge/Portfolio-Live-blue)](https://gosidehustlesisi.github.io/sierra-applied-ml)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python)](https://python.org)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+
+**Role**: Data Scientist · ML Engineer · Applied AI Engineer · Analytics Lead | **Focus**: People analytics, HR data science, workforce sentiment, DEI metrics
 
 I'm a people analytics leader who uses data to make organizations more human. I built attrition prediction models at Akin Gump with 87% accuracy, reducing voluntary turnover by 30%. I designed NLP dashboards at WMATA that analyzed 5,000+ employee feedback responses, uncovering drivers of dissatisfaction and increasing satisfaction scores by 20%. I presented DEI metrics directly to CEOs and Partners, influencing firmwide inclusion strategy. I don't just report on people — I predict what they need before they ask.
 
@@ -38,7 +47,7 @@ I'm a people analytics leader who uses data to make organizations more human. I 
 - **Current:** Manager, Data Strategy & Service Optimization @ WMATA
 - **Past:** DEI Data Analyst @ Akin Gump · Lead Data Manager @ DC Government
 - **Education:** MPA · MPH · PMP (in progress) · CDMP (in progress)
-- **Contact:** [LinkedIn](https://linkedin.com/in/sierran) · [Email](mailto:s.napier430@gmail.com)
+- **Contact:** [LinkedIn](https://linkedin.com/in/sierran) · [Email](mailto:sierra.napier430@gmail.com)
 
 ---
 
