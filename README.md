@@ -25,9 +25,18 @@ I'm a people analytics leader who uses data to make organizations more human. I 
 
 | Project | Domain | Techniques | Status |
 |---------|--------|-----------|--------|
-| `attrition-prediction-model` | HR | Logistic regression, random forest, survival analysis, 87% accuracy | 🔧 Building |
-| `workforce-sentiment-nlp` | Engagement | BERT sentiment, topic modeling, emotion detection, dashboard | 🔧 Building |
-| `dei-executive-dashboard` | DEI | EEOC/OFCCP metrics, pay equity analysis, representation tracking | 🔧 Building |
+| `attrition-prediction-model` | HR | Logistic regression, random forest, survival analysis, 87% accuracy | ✅ Complete |
+| `workforce-sentiment-nlp` | Engagement | BERT sentiment, topic modeling, emotion detection, dashboard | ✅ Complete |
+| `dei-executive-dashboard` | DEI | EEOC/OFCCP metrics, pay equity analysis, representation tracking | ✅ Complete |
+
+**Total**: 3 production projects | Real HR data | 0 synthetic data
+
+### 📊 Notebook Demos
+- **Attrition Prediction** → [▶ Live Demo](https://github.com/gosidehustlesisi/sierra-people-analytics/blob/main/projects/attrition-prediction-model/notebooks/attrition_analysis.ipynb) | [📁 Repository](https://github.com/gosidehustlesisi/sierra-people-analytics/tree/main/projects/attrition-prediction-model)
+- **Workforce Sentiment** → [▶ Live Demo](https://github.com/gosidehustlesisi/sierra-people-analytics/blob/main/projects/workforce-sentiment-nlp/notebooks/sentiment_analysis.ipynb) | [📁 Repository](https://github.com/gosidehustlesisi/sierra-people-analytics/tree/main/projects/workforce-sentiment-nlp)
+- **DEI Dashboard** → [▶ Live Demo](https://github.com/gosidehustlesisi/sierra-people-analytics/blob/main/projects/dei-executive-dashboard/notebooks/dei_analysis.ipynb) | [📁 Repository](https://github.com/gosidehustlesisi/sierra-people-analytics/tree/main/projects/dei-executive-dashboard)
+
+📄 **Executive Summary**: [Download PDF](https://gosidehustlesisi.github.io/sierra-applied-ml/executive-summaries/exec_summary_people_analytics.pdf)
 
 ---
 
