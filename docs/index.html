@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sierra Napier — People Analytics. Workforce sentiment, DEI metrics, retention analysis. Real organizational data.">
+    <title>People Analytics — Sierra Napier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0f1115;
+            --bg-surface: #111827;
+            --bg-elevated: #1a2234;
+            --border: #1f2d44;
+            --text-primary: #f0f0f0;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-rose: #e11d48;
+            --accent-gold: #f59e0b;
+            --accent-rose-hover: #f43f5e;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(15, 17, 21, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 1rem 0;
+        }
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--accent-rose); }
+        .hero {
+            padding: 6rem 0 4rem;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-rose) 0%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        .hero .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .hero .stat {
+            text-align: center;
+        }
+        .hero .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-rose);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .hero .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+        .section {
+            padding: 4rem 0;
+            border-top: 1px solid var(--border);
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .section-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        .project-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(225, 29, 72, 0.1);
+        }
+        .project-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--accent-rose);
+        }
+        .project-card .tag {
+            display: inline-block;
+            background: rgba(225, 29, 72, 0.15);
+            color: var(--accent-rose);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .project-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+        }
+        .project-card .meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .tech-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .tech-item {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 0;
+            text-align: center;
+            color: var(--text-muted);
+        }
+        footer .social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        footer a:hover { color: var(--accent-rose); }
+        .floating-cta {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--accent-rose);
+            color: #fff;
+            padding: 0.875rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 20px rgba(225, 29, 72, 0.3);
+            transition: background 0.2s;
+            z-index: 1000;
+        }
+        .floating-cta:hover {
+            background: var(--accent-rose-hover);
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .coming-soon {
+            background: var(--bg-elevated);
+            border: 1px dashed var(--border);
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="container">
+        <div class="nav-inner">
+            <a href="#" class="nav-brand">
+                <span style="color:var(--accent-rose);">◆</span> Sierra Napier
+            </a>
+            <ul class="nav-links">
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#tech">Stack</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <h1>People Analytics</h1>
+        <p class="subtitle">Workforce intelligence, DEI measurement, and organizational health analytics. Real HR data and public workforce surveys.</p>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Figures (Building)</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">HR</div>
+                <div class="stat-label">Data Sources</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="projects" class="section">
+    <div class="container">
+        <h2 class="section-title">Projects</h2>
+        <p class="section-subtitle">Workforce analytics and organizational intelligence</p>
+        <div class="projects-grid">
+            <div class="project-card reveal">
+                <span class="tag">DEI Analytics</span>
+                <h3>Workforce Diversity & Inclusion Metrics</h3>
+                <p>Demographic representation analysis across job levels, pay equity analysis, and promotion pipeline diversity tracking. EEO-1 data integration.</p>
+                <div class="meta">EEO-1 · Pay equity · Pipeline analysis</div>
+            </div>
+            <div class="project-card reveal">
+                <span class="tag">Sentiment</span>
+                <h3>Employee Sentiment & Retention</h3>
+                <p>Workforce sentiment analysis from Glassdoor reviews, exit interview text mining, and retention risk modeling using survival analysis.</p>
+                <div class="meta">Glassdoor · NLP · Survival analysis</div>
+            </div>
+            <div class="project-card reveal">
+                <span class="tag">Federal</span>
+                <h3>FedScope Workforce Demographics</h3>
+                <p>Federal employee demographic analysis using OPM FedScope data. Agency comparisons, diversity trends, and retirement eligibility forecasting.</p>
+                <div class="meta">OPM · FedScope · Federal workforce</div>
+            </div>
+        </div>
+        <div class="coming-soon reveal" style="margin-top: 2rem;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">🚧</div>
+            <div style="font-size: 1.25rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem;">Figures in Production</div>
+            <div>Charts and analysis outputs are being generated from real datasets.<br>Check back soon for the full gallery.</div>
+        </div>
+    </div>
+</section>
+
+<section id="tech" class="section">
+    <div class="container">
+        <h2 class="section-title">Tech Stack</h2>
+        <p class="section-subtitle">Tools and libraries used across all projects</p>
+        <div class="tech-grid">
+            <div class="tech-item">Python 3.11</div>
+            <div class="tech-item">pandas</div>
+            <div class="tech-item">matplotlib</div>
+            <div class="tech-item">seaborn</div>
+            <div class="tech-item">scikit-learn</div>
+            <div class="tech-item">NLTK</div>
+            <div class="tech-item">Jupyter</div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="social">
+            <a href="https://github.com/gosidehustlesisi">GitHub</a>
+            <a href="https://www.linkedin.com/in/sierranapier/">LinkedIn</a>
+            <a href="mailto:sierra.napier@e3-ai.com">Email</a>
+        </div>
+        <p>Built with real data. No synthetic shortcuts.</p>
+    </div>
+</footer>
+
+<a href="mailto:sierra.napier@e3-ai.com" class="floating-cta">Contact Sierra →</a>
+
+<script>
+(function() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    setTimeout(() => { document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible')); }, 3000);
+})();
+</script>
+
+</body>
+</html>
