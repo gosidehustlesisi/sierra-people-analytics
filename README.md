@@ -18,7 +18,7 @@ Real HR data. Zero synthetic records. Decision-ready outputs.
 
 <div align="center">
 
-**3 projects · IBM HR Analytics · Glassdoor · EEO-1 · BLS** · **In Development**
+**3 projects · 23 figures · IBM HR Analytics · Glassdoor Reviews · Real Data**
 
 </div>
 
@@ -27,20 +27,18 @@ Real HR data. Zero synthetic records. Decision-ready outputs.
 ## Verified Data Sources
 
 <p align="center">
-  <img src="https://img.shields.io/badge/IBM%20HR%20Analytics-Kaggle%20Dataset-009CDE?style=flat-square" alt="IBM HR" />
-  <img src="https://img.shields.io/badge/Glassdoor-Compensation%20%26%20Reviews-2E7D32?style=flat-square" alt="Glassdoor" />
-  <img src="https://img.shields.io/badge/EEO--1-Federal%20Diversity%20Data-8B0000?style=flat-square" alt="EEO-1" />
-  <img src="https://img.shields.io/badge/BLS-Occupational%20Employment-1B4F72?style=flat-square" alt="BLS" />
-  <img src="https://img.shields.io/badge/Status-IN%20DEVELOPMENT-f59e0b?style=flat-square" alt="In Development" />
+  <img src="https://img.shields.io/badge/IBM%20HR%20Analytics-1%2C470%20employees-009CDE?style=flat-square" alt="IBM HR" />
+  <img src="https://img.shields.io/badge/Glassdoor-1%2C000%20reviews-2E7D32?style=flat-square" alt="Glassdoor" />
+  <img src="https://img.shields.io/badge/Status-LIVE-success?style=flat-square" alt="Live" />
 </p>
 
 ---
 
 ## At a Glance
 
-| Records | Sources | Projects | Charts | Categories |
-|---------|---------|----------|--------|------------|
-| **TBD** | **4** | **3** | **TBD** | **Attrition · Compensation · Diversity · Sentiment** |
+| Records | Sources | Projects | Figures | Categories |
+|---------|---------|----------|---------|------------|
+| **2,470** | **2** | **3** | **23** | **Attrition · DEI · Sentiment** |
 
 ---
 
@@ -57,177 +55,184 @@ Real HR data. Zero synthetic records. Decision-ready outputs.
 
 ---
 
----
-
-# Project 1: Workforce Attrition Analysis
+## Project 1: Workforce Attrition Prediction
 
 **Predictive modeling for employee turnover using IBM HR Analytics**
 
 <p align="left">
   <img src="https://img.shields.io/badge/Source-IBM%20HR%20Analytics%20(Kaggle)-009CDE?style=flat-square" />
-  <img src="https://img.shields.io/badge/Status-IN%20DEVELOPMENT-f59e0b?style=flat-square" />
+  <img src="https://img.shields.io/badge/Records-1%2C470%20employees-blue?style=flat-square" />
+  <img src="https://img.shields.io/badge/Model%20AUC-0.757-success?style=flat-square" />
+  <img src="https://img.shields.io/badge/Figures-9-success?style=flat-square" />
 </p>
 
 ---
 
 ### What This Means for Your Business
 
-Employee turnover costs 50–200% of annual salary per departure. I build predictive models that identify at-risk employees before they submit their resignation — enabling proactive retention interventions rather than reactive backfill.
+Employee turnover costs 50–200% of annual salary per departure. This project builds predictive models that identify at-risk employees before they submit their resignation — enabling proactive retention interventions.
 
-**Key business application:** HR retention strategy, succession planning, and workforce stability forecasting.
+### Key Findings
 
-### Why This Matters to Hiring Managers
+| Metric | Value |
+|--------|-------|
+| **Overall Attrition Rate** | **16.1%** (237 of 1,470 employees) |
+| **Highest Risk Department** | **Sales: 20.6%** |
+| **Overtime Impact** | **30.5% attrition with overtime vs 10.4% without** |
+| **Income Correlation** | Lower income = higher attrition risk |
+| **Model AUC** | **0.757** (Random Forest with balanced classes) |
 
-Most attrition models are black-box neural networks that HR can't explain to leadership. I build interpretable models — logistic regression with SHAP values, random forests with feature importance — that produce actionable, auditable insights.
+### Figures Generated
+
+| Figure | Description |
+|--------|-------------|
+| `01_attrition_overview.png` | Overall attrition distribution + department breakdown |
+| `02_attrition_demographics.png` | Attrition by age, gender, marital status, education |
+| `03_attrition_job_factors.png` | Overtime, job role, level, travel impact |
+| `04_attrition_satisfaction_compensation.png` | Satisfaction scores + income group analysis |
+| `05_correlation_heatmap.png` | Full correlation matrix of numeric features |
+| `06_feature_importance_rf.png` | Random Forest feature importance ranking |
+| `07_model_performance.png` | Confusion matrix + ROC curve (AUC = 0.757) |
+| `08_attrition_tenure_career.png` | Tenure, role duration, promotion gaps |
+| `09_key_insights_summary.png` | Executive summary with all key metrics |
+
+### Tech Stack
+
+Python · pandas · scikit-learn · matplotlib · seaborn
 
 ---
 
-**Metrics (Planned)**
-
-| Dataset | Records | Features | Target | Techniques |
-|---|---|---|---|---|
-| **IBM HR Analytics** | **1,470 employees** | **35** | **Attrition (Yes/No)** | **Logistic Regression, Random Forest, XGBoost, SHAP** |
-
----
-
-### Planned Analysis
-
-- Load IBM HR Analytics dataset from Kaggle
-- Engineer features: tenure, overtime ratio, satisfaction score composite, salary percentile
-- Train interpretable classifiers with cross-validation
-- Generate SHAP values for individual prediction explanation
-- Build attrition risk dashboard with department-level breakdowns
-- Identify top predictors: overtime, income, job satisfaction, years at company
-
-**Tech stack:** Python · pandas · scikit-learn · XGBoost · SHAP · matplotlib
-
----
-
-→ [Notebooks — Coming Soon](projects/workforce-attrition/notebooks/)
+→ [Notebooks & Code](projects/attrition-prediction-model/notebooks/)
 
 ---
 
 ### What I'd Bring to Your Team
 
 - **Predictive attrition modeling** with interpretable outputs
-- **SHAP-based explanation** for individual risk scoring
-- **Department-level dashboards** for targeted intervention
+- **Department-level risk dashboards** for targeted intervention
+- **Feature importance analysis** to identify retention levers
 
 ---
 
 ---
 
-# Project 2: Compensation Benchmarking Engine
+## Project 2: DEI Executive Dashboard
 
-**Industry pay analysis using Glassdoor and BLS data**
+**Diversity, equity & inclusion analytics on real workforce data**
 
 <p align="left">
-  <img src="https://img.shields.io/badge/Source-Glassdoor%20%2B%20BLS-2E7D32?style=flat-square" />
-  <img src="https://img.shields.io/badge/Status-IN%20DEVELOPMENT-f59e0b?style=flat-square" />
+  <img src="https://img.shields.io/badge/Source-IBM%20HR%20Analytics-009CDE?style=flat-square" />
+  <img src="https://img.shields.io/badge/Records-1%2C470%20employees-blue?style=flat-square" />
+  <img src="https://img.shields.io/badge/Figures-7-success?style=flat-square" />
 </p>
 
 ---
 
 ### What This Means for Your Business
 
-Compensation is the #1 driver of attrition and the #1 cost line item. I build benchmarking engines that compare your pay bands against market rates by role, location, and industry — not just national averages, but granular competitive positioning.
+DEI isn't a checkbox — it's a competitive advantage backed by data. This project analyzes real workforce demographics to measure representation gaps, pay equity, and retention parity across gender, age, and organizational level.
 
-**Key business application:** Pay equity audits, offer calibration, and retention-adjusted compensation strategy.
+### Key Findings
 
-### Why This Matters to Hiring Managers
+| Metric | Value |
+|--------|-------|
+| **Gender Pay Gap** | **No significant gap detected** (p = 0.22) |
+| **Male Mean Income** | $6,381 |
+| **Female Mean Income** | $6,687 |
+| **Female Attrition** | 14.8% |
+| **Male Attrition** | 17.0% |
+| **Sales Dept Diversity** | Most gender-balanced, highest attrition |
 
-Most compensation analyses use outdated salary surveys. I integrate live Glassdoor scraping with BLS Occupational Employment data to produce current, location-specific benchmarks. The output isn't a report — it's a decision tool.
+### Figures Generated
+
+| Figure | Description |
+|--------|-------------|
+| `01_gender_representation.png` | Gender breakdown by department & job level |
+| `02_pay_equity_analysis.png` | Income distributions + statistical t-test |
+| `03_dei_attrition_retention.png` | Attrition by gender, department, level, age |
+| `04_promotion_career_parity.png` | Promotion gaps, training equity, stock options |
+| `05_worklife_satisfaction_demographics.png` | WLB, satisfaction, overtime by gender |
+| `06_education_hiring_diversity.png` | Education field, level, marital status, commute |
+| `07_executive_dei_scorecard.png` | One-page executive summary with all DEI KPIs |
+
+### Honest Note on Pay Equity
+
+The data shows **no statistically significant gender pay gap** in this dataset (t-test p = 0.22). This doesn't mean pay equity is perfect — it means the sample doesn't show a detectable difference. Real pay equity audits require larger samples and controls for role, tenure, and performance.
+
+### Tech Stack
+
+Python · pandas · scipy · matplotlib · seaborn
 
 ---
 
-**Metrics (Planned)**
-
-| Sources | Roles | Locations | Metrics | Techniques |
-|---|---|---|---|---|
-| **Glassdoor + BLS** | **50+** | **MSA-level** | **Base, bonus, equity, total comp** | **Web scraping, outlier detection, percentile ranking** |
-
----
-
-### Planned Analysis
-
-- Scrape Glassdoor salary data for target roles and locations
-- Merge with BLS OES wage data for validation and gap analysis
-- Build percentile ranking engine (25th, 50th, 75th, 90th)
-- Identify pay equity gaps by gender, ethnicity, and tenure
-- Generate competitive positioning heatmaps by role × location
-- Build interactive compensation dashboard
-
-**Tech stack:** Python · requests · BeautifulSoup · pandas · matplotlib · BLS API
-
----
-
-→ [Notebooks — Coming Soon](projects/compensation-benchmarking/notebooks/)
+→ [Notebooks & Code](projects/dei-executive-dashboard/notebooks/)
 
 ---
 
 ### What I'd Bring to Your Team
 
-- **Live compensation benchmarking** with market-rate validation
-- **Pay equity analysis** with statistical significance testing
-- **Offer calibration** tools for recruiting and retention
+- **DEI measurement frameworks** with statistical rigor
+- **Pay equity analysis** with t-tests and cohort comparisons
+- **Executive scorecards** for board-ready reporting
 
 ---
 
 ---
 
-# Project 3: Diversity & Inclusion Analytics
+## Project 3: Workforce Sentiment NLP
 
-**EEO-1 compliance and workforce sentiment measurement**
+**Employee sentiment analysis using 1,000 real Glassdoor reviews**
 
 <p align="left">
-  <img src="https://img.shields.io/badge/Source-EEO--1%20%2B%20BLS-8B0000?style=flat-square" />
-  <img src="https://img.shields.io/badge/Status-IN%20DEVELOPMENT-f59e0b?style=flat-square" />
+  <img src="https://img.shields.io/badge/Source-Glassdoor%20Reviews-2E7D32?style=flat-square" />
+  <img src="https://img.shields.io/badge/Records-1%2C000%20reviews-blue?style=flat-square" />
+  <img src="https://img.shields.io/badge/Figures-7-success?style=flat-square" />
 </p>
 
 ---
 
 ### What This Means for Your Business
 
-Diversity isn't a checkbox — it's a competitive advantage backed by data. I analyze EEO-1 filings and workforce sentiment to measure representation gaps, track progress against benchmarks, and identify intervention points where inclusion efforts will have the highest impact.
+Employee sentiment is a leading indicator of turnover, productivity, and employer brand. This project analyzes real Glassdoor reviews to extract themes, measure sentiment across dimensions, and identify what employees love and what drives them away.
 
-**Key business application:** DEI strategy, compliance reporting, and culture measurement.
+### Key Findings
 
-### Why This Matters to Hiring Managers
+| Metric | Value |
+|--------|-------|
+| **Average Overall Rating** | **2.45 / 5.0** |
+| **Recommend to Friend** | **46.8%** positive |
+| **CEO Approval** | **44.8%** positive |
+| **Top PROS Themes** | good, great, people, benefits, team |
+| **Top CONS Themes** | management, people, work, company, culture |
+| **Lowest Dimension** | Senior Leadership (2.12/5) |
 
-Most DEI reports are static PDFs produced once a year. I build live dashboards that track representation by level, department, and time — with sentiment analysis from Glassdoor reviews to measure whether diversity translates to inclusion.
+### Figures Generated
+
+| Figure | Description |
+|--------|-------------|
+| `01_rating_distribution_overview.png` | Overall, WLB, culture, compensation ratings |
+| `02_rating_comparison_dimensions.png` | Average ratings by dimension + company heatmap |
+| `03_sentiment_analysis_pros_cons.png` | Lexicon sentiment: positive/negative word counts |
+| `04_top_themes_pros_cons.png` | Top 15 words in PROS vs CONS reviews |
+| `05_employee_status_tenure.png` | Current vs former, tenure distribution, rating by tenure |
+| `06_recommendation_approval_flags.png` | CEO approval, recommend, outlook flags |
+| `07_key_insights_summary.png` | Executive summary with all sentiment KPIs |
+
+### Tech Stack
+
+Python · pandas · NLTK-style lexicon · matplotlib · seaborn
 
 ---
 
-**Metrics (Planned)**
-
-| Source | Records | Dimensions | Metrics | Techniques |
-|---|---|---|---|---|
-| **EEO-1 + BLS + Glassdoor** | **Federal filings + reviews** | **Race, gender, level, department** | **Representation, sentiment, turnover by group** | **NLP sentiment, cohort analysis, gap visualization** |
-
----
-
-### Planned Analysis
-
-- Download and parse EEO-1 Component 1 data (federal filing)
-- Merge with BLS demographic data for industry benchmarking
-- Scrape Glassdoor reviews for sentiment by demographic group
-- Build representation pyramid (entry → exec) by race and gender
-- Compute adverse impact ratios and statistical significance
-- Generate inclusion scorecard with trend analysis
-
-**Tech stack:** Python · pandas · NLP (VADER/ TextBlob) · matplotlib · EEO-1 data
-
----
-
-→ [Notebooks — Coming Soon](projects/diversity-inclusion/notebooks/)
+→ [Notebooks & Code](projects/workforce-sentiment-nlp/notebooks/)
 
 ---
 
 ### What I'd Bring to Your Team
 
-- **DEI measurement frameworks** with federal compliance alignment
-- **Sentiment analysis** for culture and inclusion monitoring
-- **Adverse impact analysis** for legal and audit readiness
+- **Real-time sentiment monitoring** from review platforms
+- **Theme extraction** from open-text feedback
+- **Competitive benchmarking** against industry peers
 
 ---
 
@@ -237,11 +242,11 @@ Most DEI reports are static PDFs produced once a year. I build live dashboards t
 
 | Project | Primary Source | Method | Records | Status |
 |---|---|---|---|---|
-| **Workforce Attrition** | IBM HR Analytics (Kaggle) | Dataset download | 1,470 employees | 🟡 In Development |
-| **Compensation** | Glassdoor + BLS OES | Web scraping + API | 50+ roles, MSA-level | 🟡 In Development |
-| **Diversity & Inclusion** | EEO-1 + BLS + Glassdoor | Federal filings + NLP | Federal + review data | 🟡 In Development |
+| **Workforce Attrition** | IBM HR Analytics (Kaggle) | Direct download | 1,470 employees | ✅ Complete |
+| **DEI Dashboard** | IBM HR Analytics (Kaggle) | Same dataset, DEI lens | 1,470 employees | ✅ Complete |
+| **Sentiment NLP** | Glassdoor Reviews (Bright Data sample) | Direct download | 1,000 reviews | ✅ Complete |
 
-**All planned data sources are real public datasets.** No synthetic records will be used. Every analysis will trace to a verifiable source.
+**All data is real. Zero synthetic records. Every figure traces to a verifiable source.**
 
 ---
 
@@ -253,15 +258,15 @@ git clone https://github.com/gosidehustlesisi/sierra-people-analytics.git
 cd sierra-people-analytics
 
 # Install dependencies
-pip install -r requirements.txt
+pip install pandas numpy matplotlib seaborn scikit-learn scipy
 
-# Notebooks coming soon
-# jupyter notebook projects/workforce-attrition/notebooks/
-# jupyter notebook projects/compensation-benchmarking/notebooks/
-# jupyter notebook projects/diversity-inclusion/notebooks/
+# Run figure generation
+python projects/attrition-prediction-model/notebooks/generate_figures.py
+python projects/dei-executive-dashboard/notebooks/generate_figures.py
+python projects/workforce-sentiment-nlp/notebooks/generate_figures.py
 ```
 
-**Requirements:** `pip install pandas numpy matplotlib seaborn scikit-learn xgboost shap requests beautifulsoup4 nltk`
+**Requirements:** `pip install pandas numpy matplotlib seaborn scikit-learn scipy`
 
 ---
 
@@ -280,8 +285,8 @@ pip install -r requirements.txt
 
 <div align="center">
 
-*People analytics in development — real data, real insights, coming soon.*
+*People analytics powered by real data. Zero synthetic records. Decision-ready insights.*
 
-**Built with curiosity, rigor, and a lot of scikit-learn.**
+**Built with curiosity, rigor, and a lot of pandas.**
 
 </div>
