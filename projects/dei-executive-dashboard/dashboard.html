@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEI Executive Dashboard | People Analytics</title>
+<style>
+:root{--bg:#0f1115;--surface:#1a2234;--border:#1f2d44;--text:#f0f0f0;--muted:#94a3b8;--accent:#e91e63;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);padding:2rem;}
+h1{text-align:center;margin-bottom:0.5rem;}p.subtitle{text-align:center;color:var(--muted);margin-bottom:2rem;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:1.5rem;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;}
+.card h3{font-size:0.95rem;margin-bottom:0.75rem;color:var(--accent);}
+.card img{width:100%;border-radius:8px;}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2rem;}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;}
+.stat .num{font-size:1.5rem;font-weight:bold;color:var(--accent);}
+.stat .lbl{font-size:0.85rem;color:var(--muted);}
+.source{color:var(--muted);font-size:0.8rem;text-align:center;margin-top:2rem;}
+</style>
+</head>
+<body>
+<h1>🌈 DEI Executive Dashboard</h1>
+<p class="subtitle">Pay equity, attrition parity, and workforce composition analysis</p>
+<div class="stats">
+<div class="stat"><div class="num">1,470</div><div class="lbl">Employees</div></div>
+<div class="stat"><div class="num">$6,534</div><div class="lbl">Mean Income</div></div>
+<div class="stat"><div class="num">-4.6%</div><div class="lbl">Pay Gap</div></div>
+<div class="stat"><div class="num">7</div><div class="lbl">Visualizations</div></div>
+</div>
+<div class="grid">
+<div class="card"><h3>01: Gender Representation</h3><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/dei-executive-dashboard/figures/01_gender_representation.png" alt="Gender Representation"></div>
+<div class="card"><h3>02: Pay Equity Analysis</h3><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/dei-executive-dashboard/figures/02_pay_equity_analysis.png" alt="Pay Equity"></div>
+<div class="card"><h3>03: DEI Attrition & Retention</h3><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/dei-executive-dashboard/figures/03_dei_attrition_retention.png" alt="Attrition"></div>
+<div class="card"><h3>04: Promotion & Career Parity</h3><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/dei-executive-dashboard/figures/04_promotion_career_parity.png" alt="Career Parity"></div>
+<div class="card"><h3>05: Work-Life & Satisfaction</h3><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/dei-executive-dashboard/figures/05_worklife_satisfaction_demographics.png" alt="Satisfaction"></div>
+<div class="card"><h3>06: Education & Hiring Diversity</h3><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/dei-executive-dashboard/figures/06_education_hiring_diversity.png" alt="Education"></div>
+<div class="card"><h3>07: Executive DEI Scorecard</h3><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/dei-executive-dashboard/figures/07_executive_dei_scorecard.png" alt="Scorecard"></div>
+</div>
+<p class="source">Data Source: IBM HR Analytics Employee Attrition (1,470 employees, real data) | Analysis: Statistical t-tests, cross-tabulations</p>
+</body>
+</html>

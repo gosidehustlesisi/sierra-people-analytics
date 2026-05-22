@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workforce Sentiment NLP | People Analytics</title>
+<style>
+:root{--bg:#0f1115;--surface:#1a2234;--border:#1f2d44;--text:#f0f0f0;--muted:#94a3b8;--accent:#8b5cf6;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);padding:2rem;}
+h1{text-align:center;margin-bottom:0.5rem;}p.subtitle{text-align:center;color:var(--muted);margin-bottom:2rem;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:1.5rem;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;}
+.card h3{font-size:0.95rem;margin-bottom:0.75rem;color:var(--accent);}
+.card img{width:100%;border-radius:8px;}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2rem;}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;}
+.stat .num{font-size:1.5rem;font-weight:bold;color:var(--accent);}
+.stat .lbl{font-size:0.85rem;color:var(--muted);}
+.source{color:var(--muted);font-size:0.8rem;text-align:center;margin-top:2rem;}
+</style>
+</head>
+<body>
+<h1>🗣️ Workforce Sentiment NLP</h1>
+<p class="subtitle">Glassdoor review analysis with lexicon-based sentiment extraction</p>
+<div class="stats">
+<div class="stat"><div class="num">1,000</div><div class="lbl">Real Reviews</div></div>
+<div class="stat"><div class="num">36</div><div class="lbl">Companies</div></div>
+<div class="stat"><div class="num">2.45</div><div class="lbl">Avg Rating</div></div>
+<div class="stat"><div class="num">7</div><div class="lbl">Visualizations</div></div>
+</div>
+<div class="grid">
+<div class="card"><h3>01: Rating Distribution Overview</h3><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/workforce-sentiment-nlp/figures/01_rating_distribution_overview.png" alt="Rating Distribution"></div>
+<div class="card"><h3>02: Rating Comparison by Dimension</h3><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/workforce-sentiment-nlp/figures/02_rating_comparison_dimensions.png" alt="Rating Dimensions"></div>
+<div class="card"><h3>03: Sentiment Analysis (Pros vs Cons)</h3><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/workforce-sentiment-nlp/figures/03_sentiment_analysis_pros_cons.png" alt="Sentiment Analysis"></div>
+<div class="card"><h3>04: Top Themes in Pros & Cons</h3><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/workforce-sentiment-nlp/figures/04_top_themes_pros_cons.png" alt="Top Themes"></div>
+<div class="card"><h3>05: Employee Status & Tenure</h3><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/workforce-sentiment-nlp/figures/05_employee_status_tenure.png" alt="Employee Status"></div>
+<div class="card"><h3>06: Recommendation & Approval Flags</h3><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/workforce-sentiment-nlp/figures/06_recommendation_approval_flags.png" alt="Approval Flags"></div>
+<div class="card"><h3>07: Key Insights Summary</h3><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/workforce-sentiment-nlp/figures/07_key_insights_summary.png" alt="Key Insights"></div>
+</div>
+<p class="source">Data Source: Glassdoor Company Reviews (Bright Data) | Analysis: Lexicon-based sentiment, frequency analysis</p>
+</body>
+</html>
