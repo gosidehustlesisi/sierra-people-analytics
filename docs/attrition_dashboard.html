@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attrition Prediction — Interactive Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #e0e0e0; }
+        .header { background: #1a1a2e; padding: 24px 32px; border-bottom: 2px solid #e50914; }
+        .header h1 { font-size: 26px; color: #fff; }
+        .header p { color: #888; margin-top: 6px; font-size: 14px; }
+        .kpi-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 20px 32px; background: #12121a; }
+        .kpi { background: #1a1a2e; padding: 16px; border-radius: 8px; border-left: 3px solid #e50914; }
+        .kpi-value { font-size: 28px; font-weight: 700; color: #fff; }
+        .kpi-label { font-size: 12px; color: #888; margin-top: 4px; text-transform: uppercase; }
+        .controls { padding: 16px 32px; background: #12121a; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+        .controls label { font-size: 12px; color: #888; text-transform: uppercase; }
+        .controls select, .controls button {
+            background: #1a1a2e; color: #e0e0e0; border: 1px solid #333;
+            padding: 8px 14px; border-radius: 6px; font-size: 13px; cursor: pointer;
+        }
+        .controls button:hover { background: #e50914; border-color: #e50914; color: #fff; }
+        .controls button.active { background: #e50914; border-color: #e50914; color: #fff; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px 32px; }
+        .chart { background: #1a1a2e; border-radius: 12px; padding: 20px; min-height: 400px; }
+        .chart-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 12px; }
+        .loading { text-align: center; padding: 40px; color: #666; }
+        @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } .kpi-bar { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>👤 Attrition Prediction Model</h1>
+        <p>IBM HR Analytics Dataset | 1,470 employees | Interactive workforce retention intelligence</p>
+    </div>
+
+    <div class="kpi-bar">
+        <div class="kpi"><div class="kpi-value" id="kpi-rate">—</div><div class="kpi-label">Attrition Rate</div></div>
+        <div class="kpi"><div class="kpi-value" id="kpi-atrisk">—</div><div class="kpi-label">At-Risk Employees</div></div>
+        <div class="kpi"><div class="kpi-value" id="kpi-avg-age">—</div><div class="kpi-label">Avg Age (Left)</div></div>
+        <div class="kpi"><div class="kpi-value" id="kpi-top-dept">—</div><div class="kpi-label">Highest Risk Dept</div></div>
+    </div>
+
+    <div class="controls">
+        <label>Department:</label>
+        <select id="dept-filter"><option value="all">All Departments</option></select>
+        <label>Gender:</label>
+        <button class="gender-btn active" data-val="all">All</button>
+        <button class="gender-btn" data-val="Male">Male</button>
+        <button class="gender-btn" data-val="Female">Female</button>
+    </div>
+
+    <div class="grid">
+        <div class="chart"><div class="chart-title">Attrition by Department</div><div id="chart-dept" class="loading">Loading...</div></div>
+        <div class="chart"><div class="chart-title">Age Distribution (Stayed vs Left)</div><div id="chart-age" class="loading">Loading...</div></div>
+        <div class="chart"><div class="chart-title">Monthly Income vs Attrition</div><div id="chart-income" class="loading">Loading...</div></div>
+        <div class="chart"><div class="chart-title">Job Role Risk Breakdown</div><div id="chart-role" class="loading">Loading...</div></div>
+    </div>
+
+    <script>
+        const DATA_URL = 'https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/attrition-prediction-model/data/WA_Fn-UseC_-HR-Employee-Attrition.csv';
+        let allData = [];
+
+        async function loadData() {
+            const r = await fetch(DATA_URL);
+            const csv = await r.text();
+            const parsed = Papa.parse(csv, { header: true, dynamicTyping: true, skipEmptyLines: true });
+            allData = parsed.data;
+            const depts = [...new Set(allData.map(d=>d.Department).filter(Boolean))].sort();
+            const sel = document.getElementById('dept-filter');
+            depts.forEach(d=>{ const o=document.createElement('option'); o.value=d; o.textContent=d; sel.appendChild(o); });
+            updateKPIs(allData);
+            drawCharts(allData);
+        }
+
+        function filterData() {
+            const dept = document.getElementById('dept-filter').value;
+            const gender = document.querySelector('.gender-btn.active').dataset.val;
+            return allData.filter(d=>{
+                if (dept !== 'all' && d.Department !== dept) return false;
+                if (gender !== 'all' && d.Gender !== gender) return false;
+                return true;
+            });
+        }
+
+        function updateKPIs(data) {
+            const total = data.length;
+            const left = data.filter(d=>d.Attrition==='Yes').length;
+            const rate = total ? (left/total*100).toFixed(1) : 0;
+            const leftAge = data.filter(d=>d.Attrition==='Yes').map(d=>d.Age);
+            const avgAge = leftAge.length ? (leftAge.reduce((a,b)=>a+b,0)/leftAge.length).toFixed(1) : 0;
+            const deptRisk = {};
+            data.forEach(d=>{ if(!deptRisk[d.Department]) deptRisk[d.Department]={total:0,left:0}; deptRisk[d.Department].total++; if(d.Attrition==='Yes') deptRisk[d.Department].left++; });
+            const topDept = Object.entries(deptRisk).sort((a,b)=>(b[1].left/b[1].total)-(a[1].left/a[1].total))[0];
+            document.getElementById('kpi-rate').textContent = rate + '%';
+            document.getElementById('kpi-atrisk').textContent = left.toLocaleString();
+            document.getElementById('kpi-avg-age').textContent = avgAge;
+            document.getElementById('kpi-top-dept').textContent = topDept ? topDept[0] : '—';
+        }
+
+        function drawCharts(data) {
+            const layout = { paper_bgcolor:'#1a1a2e', plot_bgcolor:'#1a1a2e', font:{color:'#e0e0e0'}, margin:{t:10,b:40,l:50,r:10} };
+            const deptData = {};
+            data.forEach(d=>{ if(!deptData[d.Department]) deptData[d.Department]={total:0,left:0}; deptData[d.Department].total++; if(d.Attrition==='Yes') deptData[d.Department].left++; });
+            const depts = Object.keys(deptData).sort((a,b)=>(deptData[b].left/deptData[b].total)-(deptData[a].left/deptData[a].total));
+            const rates = depts.map(d=>(100*deptData[d].left/deptData[d].total).toFixed(1));
+            Plotly.newPlot('chart-dept', [{ y: depts, x: rates, type: 'bar', orientation: 'h', marker: { color: rates.map(r=>+r>15?'#e50914':'#ff6b35') } }], {...layout, xaxis:{title:'Attrition Rate %'}, yaxis:{title:''}}, {responsive:true});
+            const stayAges = data.filter(d=>d.Attrition==='No').map(d=>d.Age).filter(a=>!isNaN(a));
+            const leftAges = data.filter(d=>d.Attrition==='Yes').map(d=>d.Age).filter(a=>!isNaN(a));
+            Plotly.newPlot('chart-age', [{ x: stayAges, type: 'histogram', name: 'Stayed', opacity: 0.7, marker: {color:'#20bf6b'} }, { x: leftAges, type: 'histogram', name: 'Left', opacity: 0.7, marker: {color:'#e50914'} }], {...layout, barmode:'overlay', xaxis:{title:'Age'}, yaxis:{title:'Count'}}, {responsive:true});
+            const stayInc = data.filter(d=>d.Attrition==='No').map(d=>d.MonthlyIncome).filter(i=>!isNaN(i));
+            const leftInc = data.filter(d=>d.Attrition==='Yes').map(d=>d.MonthlyIncome).filter(i=>!isNaN(i));
+            Plotly.newPlot('chart-income', [{ y: stayInc, type: 'box', name: 'Stayed', marker: {color:'#20bf6b'}, boxpoints: false }, { y: leftInc, type: 'box', name: 'Left', marker: {color:'#e50914'}, boxpoints: false }], {...layout, yaxis:{title:'Monthly Income ($)'}}, {responsive:true});
+            const roleData = {};
+            data.forEach(d=>{ if(!roleData[d.JobRole]) roleData[d.JobRole]={total:0,left:0}; roleData[d.JobRole].total++; if(d.Attrition==='Yes') roleData[d.JobRole].left++; });
+            const roles = Object.keys(roleData).sort((a,b)=>(roleData[b].left/roleData[b].total)-(roleData[a].left/roleData[a].total));
+            const roleRates = roles.map(r=>(100*roleData[r].left/roleData[r].total).toFixed(1));
+            Plotly.newPlot('chart-role', [{ x: roles, y: roleRates, type: 'bar', marker: { color: roleRates.map(r=>+r>20?'#e50914':+r>10?'#ff6b35':'#f7b731') } }], {...layout, xaxis:{title:''}, yaxis:{title:'Attrition Rate %'}}, {responsive:true});
+        }
+
+        document.querySelectorAll('.gender-btn').forEach(btn=>{
+            btn.addEventListener('click', ()=>{
+                document.querySelectorAll('.gender-btn').forEach(b=>b.classList.remove('active'));
+                btn.classList.add('active');
+                const d=filterData(); updateKPIs(d); drawCharts(d);
+            });
+        });
+        document.getElementById('dept-filter').addEventListener('change', ()=>{
+            const d=filterData(); updateKPIs(d); drawCharts(d);
+        });
+
+        loadData().catch(e=>{
+            document.querySelectorAll('.loading').forEach(el=>el.textContent='Error: '+e.message);
+        });
+    </script>
+</body>
+</html>
