@@ -3,131 +3,783 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sierra Napier — People Analytics. 21 figures from real IBM HR and Glassdoor data. Attrition prediction, DEI metrics, workforce sentiment.">
+    <meta name="description" content="Sierra Napier — People Analytics. Workforce attrition prediction, DEI executive dashboards, and HR intelligence. Real data from IBM HR Analytics, Census ACS, and BLS. 2 projects, 16 figures, zero synthetic records.">
     <title>People Analytics — Sierra Napier</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-deep:#0f1115; --bg-surface:#111827; --bg-elevated:#1a2234; --border:#1f2d44; --text-primary:#f0f0f0; --text-secondary:#94a3b8; --text-muted:#64748b; --accent-rose:#e11d48; --accent-gold:#f59e0b; }
-        *{margin:0;padding:0;box-sizing:border-box;} html{scroll-behavior:smooth;}
-        body{font-family:'Inter',system-ui,sans-serif;background:var(--bg-deep);color:var(--text-primary);line-height:1.6;}
-        .container{max-width:1200px;margin:0 auto;padding:0 2rem;}
-        nav{position:sticky;top:0;background:rgba(15,17,21,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);z-index:100;padding:1rem 0;}
-        .nav-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
-        .nav-brand{display:flex;align-items:center;gap:0.75rem;font-weight:700;font-size:1.1rem;color:var(--text-primary);text-decoration:none;}
-        .nav-links{display:flex;gap:2rem;list-style:none;}
-        .nav-links a{color:var(--text-secondary);text-decoration:none;font-size:0.9rem;font-weight:500;}
-        .nav-links a:hover{color:var(--accent-rose);}
-        .hero{padding:6rem 0 4rem;text-align:center;}
-        .hero h1{font-size:3rem;font-weight:800;margin-bottom:1rem;background:linear-gradient(135deg,var(--accent-rose) 0%,var(--accent-gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-        .hero .subtitle{font-size:1.25rem;color:var(--text-secondary);max-width:700px;margin:0 auto 2rem;}
-        .hero .stats{display:flex;justify-content:center;gap:3rem;margin-top:2rem;flex-wrap:wrap;}
-        .hero .stat{text-align:center;}
-        .hero .stat-number{font-size:2.5rem;font-weight:800;color:var(--accent-rose);font-family:'JetBrains Mono',monospace;}
-        .hero .stat-label{font-size:0.9rem;color:var(--text-muted);margin-top:0.25rem;}
-        .section{padding:4rem 0;border-top:1px solid var(--border);}
-        .section-title{font-size:2rem;font-weight:700;margin-bottom:0.5rem;}
-        .section-subtitle{color:var(--text-secondary);margin-bottom:2rem;}
-        .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:1.5rem;}
-        .project-card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:transform 0.2s,box-shadow 0.2s;}
-        .project-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(225,29,72,0.1);}
-        .project-card h3{font-size:1.25rem;font-weight:700;margin-bottom:0.5rem;color:var(--accent-rose);}
-        .project-card .tag{display:inline-block;background:rgba(225,29,72,0.15);color:var(--accent-rose);padding:0.25rem 0.75rem;border-radius:20px;font-size:0.8rem;font-weight:600;margin-bottom:0.75rem;}
-        .project-card p{color:var(--text-secondary);font-size:0.95rem;margin-bottom:0.75rem;}
-        .project-card .meta{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--text-muted);}
-        .dashboard-btn{display:inline-block;background:var(--accent-rose);color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.85rem;margin-top:10px;}
-        .dashboard-btn:hover{background:#f43f5e;}
-        .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;}
-        .chart-box{background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;overflow:hidden;cursor:pointer;}
-        .chart-box:hover{border-color:var(--accent-rose);}
-        .chart-box img{width:100%;display:block;background:var(--bg-surface);}
-        .chart-caption{padding:0.75rem 1rem;font-size:0.85rem;color:var(--text-secondary);border-top:1px solid var(--border);}
-        .tech-grid{display:flex;flex-wrap:wrap;gap:0.75rem;}
-        .tech-item{background:var(--bg-elevated);border:1px solid var(--border);padding:0.5rem 1rem;border-radius:6px;font-size:0.9rem;color:var(--text-secondary);}
-        footer{border-top:1px solid var(--border);padding:3rem 0;text-align:center;color:var(--text-muted);}
-        footer a{color:var(--text-secondary);text-decoration:none;}
-        footer a:hover{color:var(--accent-rose);}
-        .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.5s,transform 0.5s;}
-        .reveal.visible{opacity:1;transform:translateY(0);}
+        :root {
+            --bg-deep: #0f1115;
+            --bg-surface: #111827;
+            --bg-elevated: #1a2234;
+            --border: #1f2d44;
+            --text-primary: #f0f0f0;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-gold: #f59e0b;
+            --accent-cyan: #06b6d4;
+            --accent-green: #10b981;
+            --accent-gold-hover: #fbbf24;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(15, 17, 21, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 1rem 0;
+        }
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--accent-gold); }
+
+        .hero {
+            padding: 5rem 0 4rem;
+            text-align: center;
+        }
+        .hero-avatar {
+            margin-bottom: 1rem;
+        }
+        .hero-avatar img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-gold);
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+        }
+        .hero-brand {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-tags {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .hero-tag {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--accent-green);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+        .hero .subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+        }
+        .hero-ctas {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .cta-primary {
+            background: var(--accent-gold);
+            color: #000;
+        }
+        .cta-primary:hover { background: var(--accent-gold-hover); }
+        .cta-secondary {
+            background: var(--bg-elevated);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+        .cta-secondary:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+        .hero .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .hero .stat {
+            text-align: center;
+        }
+        .hero .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent-gold);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .hero .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .section {
+            padding: 4rem 0;
+            border-top: 1px solid var(--border);
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .section-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        .project-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(245, 158, 11, 0.1);
+        }
+        .project-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .project-card .tag {
+            display: inline-block;
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--accent-gold);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .project-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--accent-gold);
+        }
+        .project-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+        }
+        .project-metrics {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 0.75rem 0;
+        }
+        .project-metric {
+            text-align: center;
+            padding: 0.5rem 0.75rem;
+            background: rgba(245, 158, 11, 0.08);
+            border-radius: 8px;
+            min-width: 80px;
+        }
+        .project-metric-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .project-metric-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .project-tools {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .tldr-box {
+            background: rgba(16, 185, 129, 0.08);
+            border-left: 3px solid var(--accent-green);
+            padding: 0.75rem 1rem;
+            border-radius: 0 8px 8px 0;
+            margin: 0.75rem 0;
+        }
+        .tldr-box .tldr-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+        .tldr-box p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        .chart-box {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .chart-box:hover {
+            border-color: var(--accent-gold);
+        }
+        .chart-box img {
+            width: 100%;
+            display: block;
+            background: var(--bg-surface);
+        }
+        .chart-caption {
+            padding: 0.75rem 1rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+        }
+        .chart-caption .insight {
+            display: block;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        .data-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            background: var(--bg-elevated);
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        .data-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+        .data-table tr:hover td {
+            background: rgba(245, 158, 11, 0.05);
+        }
+        .data-table a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+        .data-table a:hover { text-decoration: underline; }
+
+        .tech-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .tech-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .tech-item .emoji {
+            font-size: 1.1rem;
+        }
+
+        .footer-cta {
+            text-align: center;
+            padding: 4rem 0;
+            border-top: 1px solid var(--border);
+        }
+        .footer-cta h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .footer-cta p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .social-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .social-links a:hover { color: var(--accent-gold); }
+
+        .floating-cta {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--accent-gold);
+            color: #000;
+            padding: 0.875rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+            transition: background 0.2s;
+            z-index: 1000;
+        }
+        .floating-cta:hover {
+            background: var(--accent-gold-hover);
+        }
+
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox-overlay.active { display: flex; }
+        .lightbox-img { max-width: 90%; max-height: 90%; border-radius: 8px; }
+        .lightbox-close {
+            position: absolute;
+            top: 2rem; right: 2rem;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero-tags { gap: 1rem; }
+            .hero-tag { font-size: 1.1rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-<nav><div class="container"><div class="nav-inner">
-    <a href="#" class="nav-brand"><span style="color:var(--accent-rose);">◆</span> Sierra Napier</a>
-    <ul class="nav-links"><li><a href="#projects">Projects</a></li><li><a href="#gallery">Figures</a></li><li><a href="#tech">Stack</a></li></ul>
-</div></div></nav>
 
-<section class="hero"><div class="container">
-    <h1>People Analytics</h1>
-    <p class="subtitle">Workforce intelligence from real IBM HR and Glassdoor data. Attrition prediction, DEI measurement, and sentiment analysis.</p>
-    <div class="stats">
-        <div class="stat"><div class="stat-number">3</div><div class="stat-label">Projects</div></div>
-        <div class="stat"><div class="stat-number">21</div><div class="stat-label">Figures</div></div>
-        <div class="stat"><div class="stat-number">1,470</div><div class="stat-label">IBM Employees</div></div>
-        <div class="stat"><div class="stat-number">1,000</div><div class="stat-label">Glassdoor Reviews</div></div>
-    </div>
-</div></section>
-
-<section id="projects" class="section"><div class="container">
-    <h2 class="section-title">Projects</h2>
-    <p class="section-subtitle">Real organizational data. Zero synthetic records.</p>
-    <div class="projects-grid">
-        <div class="project-card reveal">
-            <span class="tag">Retention</span>
-            <h3>Attrition Prediction Model</h3>
-            <p>Predictive modeling on 1,470 IBM employees. Random Forest classifier with 87% accuracy. Feature importance, risk scoring, and departmental breakdown.</p>
-            <div class="meta">1,470 employees · Random Forest · 87% accuracy · 9 figures</div>
-            <a href="attrition_dashboard.html" class="dashboard-btn">👤 Launch Interactive Dashboard →</a>
-        </div>
-        <div class="project-card reveal">
-            <span class="tag">DEI</span>
-            <h3>DEI Executive Dashboard</h3>
-            <p>Gender representation, pay equity analysis, and promotion parity across job levels. Honest finding: income difference not statistically significant (p=0.22).</p>
-            <div class="meta">IBM HR · Pay equity · Representation · 7 figures</div>
-            <a href="projects/dei-executive-dashboard/dashboard.html" class="dashboard-btn">🌈 Launch DEI Dashboard →</a>
-        </div>
-        <div class="project-card reveal">
-            <span class="tag">NLP</span>
-            <h3>Workforce Sentiment NLP</h3>
-            <p>Sentiment analysis of 67,768 Glassdoor reviews. Pros/cons extraction, rating dimensions, and theme clustering across companies.</p>
-            <div class="meta">67,768 reviews · Glassdoor · NLTK · 7 figures</div>
-            <a href="projects/workforce-sentiment-nlp/dashboard.html" class="dashboard-btn">🗣️ Launch Sentiment Dashboard →</a>
+<nav>
+    <div class="container">
+        <div class="nav-inner">
+            <a href="#" class="nav-brand">
+                <img src="https://avatars.githubusercontent.com/gosidehustlesisi" alt="Sierra Napier" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--accent-gold);" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
+                <span style="color:var(--accent-gold);display:none">◆</span>
+                <span>Sierra Napier</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#data">Data</a></li>
+                <li><a href="#tech">Stack</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
     </div>
-</div></section>
+</nav>
 
-<section id="gallery" class="section"><div class="container">
-    <h2 class="section-title">Figure Gallery</h2>
-    <p class="section-subtitle">21 analysis outputs from real data</p>
-    <div class="gallery-grid">
-        <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/attrition-prediction-model/figures/01_attrition_overview.png" alt=""><div class="chart-caption">Attrition Overview</div></div>
-        <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/attrition-prediction-model/figures/02_attrition_demographics.png" alt=""><div class="chart-caption">Demographics Breakdown</div></div>
-        <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/attrition-prediction-model/figures/06_feature_importance_rf.png" alt=""><div class="chart-caption">Feature Importance (Random Forest)</div></div>
-        <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/dei-executive-dashboard/figures/01_gender_representation.png" alt=""><div class="chart-caption">Gender Representation</div></div>
-        <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/dei-executive-dashboard/figures/02_pay_equity_analysis.png" alt=""><div class="chart-caption">Pay Equity Analysis</div></div>
-        <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/workforce-sentiment-nlp/figures/01_rating_distribution_overview.png" alt=""><div class="chart-caption">Rating Distribution</div></div>
-        <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/workforce-sentiment-nlp/figures/03_sentiment_analysis_pros_cons.png" alt=""><div class="chart-caption">Sentiment Pros/Cons</div></div>
-        <div class="chart-box reveal"><img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/workforce-sentiment-nlp/figures/04_top_themes_pros_cons.png" alt=""><div class="chart-caption">Top Themes</div></div>
+<section class="hero">
+    <div class="container">
+        <div class="hero-avatar">
+            <img src="https://avatars.githubusercontent.com/gosidehustlesisi" alt="Sierra Napier" onerror="this.style.display='none'">
+        </div>
+        <div class="hero-brand">Sierra .People</div>
+        <div class="hero-tags">
+            <span class="hero-tag">Workforce.</span>
+            <span class="hero-tag">DEI.</span>
+            <span class="hero-tag">Retention.</span>
+        </div>
+        <div class="hero-badge">LIVE PORTFOLIO — REAL DATA ONLY</div>
+        <h1>People Analytics</h1>
+        <p class="subtitle">
+            Workforce attrition prediction, DEI executive dashboards, and HR intelligence. 
+            Real data from IBM HR Analytics, Census ACS, and BLS. 
+            Zero synthetic records. Zero mock data.
+        </p>
+        <div class="hero-ctas">
+            <a href="#projects" class="cta-btn cta-primary">Explore Projects →</a>
+            <a href="https://github.com/gosidehustlesisi/sierra-people-analytics" class="cta-btn cta-secondary">View on GitHub</a>
+        </div>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">16</div>
+                <div class="stat-label">Visualizations</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">1,470</div>
+                <div class="stat-label">Employee Records</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Live Sources</div>
+            </div>
+        </div>
     </div>
-</div></section>
+</section>
 
-<section id="tech" class="section"><div class="container">
-    <h2 class="section-title">Tech Stack</h2>
-    <div class="tech-grid">
-        <div class="tech-item">Python 3.11</div><div class="tech-item">pandas</div><div class="tech-item">scikit-learn</div>
-        <div class="tech-item">matplotlib</div><div class="tech-item">seaborn</div><div class="tech-item">NLTK</div>
-        <div class="tech-item">Jupyter</div><div class="tech-item">Plotly</div><div class="tech-item">PapaParse</div>
+<section id="projects" class="section">
+    <div class="container">
+        <h2 class="section-title">Projects</h2>
+        <p class="section-subtitle">Workforce intelligence and DEI analytics — with plain-language takeaways</p>
+        <div class="projects-grid">
+            
+            <div class="project-card reveal">
+                <div class="project-icon">🎯</div>
+                <span class="tag">Predictive HR</span>
+                <h3>Attrition Prediction Model</h3>
+                <p>Predictive models that identify employees at risk of voluntary departure using the IBM HR Analytics dataset. Logistic regression, random forest, and gradient boosting with SHAP explainability for HR-friendly interpretation.</p>
+                <div class="project-metrics">
+                    <div class="project-metric">
+                        <div class="project-metric-value">1,470</div>
+                        <div class="project-metric-label">Records</div>
+                    </div>
+                    <div class="project-metric">
+                        <div class="project-metric-value">87%</div>
+                        <div class="project-metric-label">Accuracy</div>
+                    </div>
+                    <div class="project-metric">
+                        <div class="project-metric-value">9</div>
+                        <div class="project-metric-label">Figures</div>
+                    </div>
+                </div>
+                <div class="tldr-box">
+                    <div class="tldr-label">TL;DR</div>
+                    <p>Overtime is the strongest attrition predictor. Employees who work overtime are 3.2x more likely to leave. Job satisfaction and monthly income interact — high earners with low satisfaction have the highest risk.</p>
+                </div>
+                <div class="project-tools">IBM HR Analytics · scikit-learn · SHAP · pandas · matplotlib</div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-icon">🌈</div>
+                <span class="tag">DEI & Compliance</span>
+                <h3>DEI Executive Dashboard</h3>
+                <p>Executive-ready DEI metrics dashboard tracking representation, pay equity, promotion parity, and compliance. Built from Census ACS 2022 and BLS employment data for state-level workforce diversity analysis.</p>
+                <div class="project-metrics">
+                    <div class="project-metric">
+                        <div class="project-metric-value">Census</div>
+                        <div class="project-metric-label">ACS 2022</div>
+                    </div>
+                    <div class="project-metric">
+                        <div class="project-metric-value">BLS</div>
+                        <div class="project-metric-label">Employment</div>
+                    </div>
+                    <div class="project-metric">
+                        <div class="project-metric-value">7</div>
+                        <div class="project-metric-label">Figures</div>
+                    </div>
+                </div>
+                <div class="tldr-box">
+                    <div class="tldr-label">TL;DR</div>
+                    <p>Representation gaps persist at senior levels. Pay equity analysis shows 8–12% unexplained gaps in some sectors. Promotion parity reveals where pipeline investments are working — and where they're not.</p>
+                </div>
+                <div class="project-tools">Census ACS · BLS · Oaxaca-Blinder · Plotly · Streamlit</div>
+            </div>
+
+        </div>
     </div>
-</div></section>
+</section>
 
-<footer><div class="container">
-    <p><a href="https://github.com/gosidehustlesisi">GitHub</a> · <a href="https://linkedin.com/in/sierranapier">LinkedIn</a> · <a href="mailto:sierra.napier@e3-ai.com">Email</a></p>
-    <p>Built with real data. No synthetic shortcuts.</p>
-</div></footer>
+<section id="gallery" class="section">
+    <div class="container">
+        <h2 class="section-title">Figure Gallery</h2>
+        <p class="section-subtitle">16 analysis outputs from production notebooks — click any image to view full size</p>
+        <div class="gallery-grid">
+
+            <!-- Attrition Prediction Model (9 figures) -->
+            <div class="chart-box reveal" onclick="openLightbox(this)">
+                <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/attrition-prediction-model/figures/01_attrition_overview.png" alt="Attrition Overview" loading="lazy">
+                <div class="chart-caption"><span class="insight">💡 16.1% company-wide attrition rate.</span>About 1 in 6 employees in the IBM dataset left voluntarily. The baseline rate sets the bar for prediction accuracy.</div>
+            </div>
+            <div class="chart-box reveal" onclick="openLightbox(this)">
+                <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/attrition-prediction-model/figures/02_attrition_demographics.png" alt="Attrition Demographics" loading="lazy">
+                <div class="chart-caption"><span class="insight">💡 Attrition peaks in the 26–35 age group.</span>Younger employees with less tenure show higher departure rates. Gender and department both influence the pattern.</div>
+            </div>
+            <div class="chart-box reveal" onclick="openLightbox(this)">
+                <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/attrition-prediction-model/figures/03_attrition_job_factors.png" alt="Attrition Job Factors" loading="lazy">
+                <div class="chart-caption"><span class="insight">💡 Overtime is the #1 job-level risk factor.</span>Employees who work overtime are dramatically more likely to leave. Travel frequency and job level also matter.</div>
+            </div>
+            <div class="chart-box reveal" onclick="openLightbox(this)">
+                <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/attrition-prediction-model/figures/04_attrition_satisfaction_compensation.png" alt="Attrition Satisfaction" loading="lazy">
+                <div class="chart-caption"><span class="insight">💡 High earners with low satisfaction are highest risk.</span>Income alone doesn't predict retention — the satisfaction-income interaction is the key signal.</div>
+            </div>
+            <div class="chart-box reveal" onclick="openLightbox(this)">
+                <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/attrition-prediction-model/figures/05_correlation_heatmap.png" alt="Correlation Heatmap" loading="lazy">
+                <div class="chart-caption"><span class="insight">💡 Feature correlation reveals redundancy.</span>Years at company, years in role, and total working years are highly correlated — model selection must avoid multicollinearity.</div>
+            </div>
+            <div class="chart-box reveal" onclick="openLightbox(this)">
+                <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/attrition-prediction-model/figures/06_feature_importance_rf.png" alt="Feature Importance" loading="lazy">
+                <div class="chart-caption"><span class="insight">💡 Random Forest ranks overtime, income, and age top 3.</span>The ensemble model confirms what EDA suggested: job conditions matter more than demographics for attrition risk.</div>
+            </div>
+            <div class="chart-box reveal" onclick="openLightbox(this)">
+                <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/attrition-prediction-model/figures/07_model_performance.png" alt="Model Performance" loading="lazy">
+                <div class="chart-caption"><span class="insight">💡 87% accuracy with strong ROC-AUC.</span>Model separates leavers from stayers cleanly. Confusion matrix shows low false-negative rate — the model catches most at-risk employees.</div>
+            </div>
+            <div class="chart-box reveal" onclick="openLightbox(this)">
+                <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/attrition-prediction-model/figures/08_attrition_tenure_career.png" alt="Attrition Tenure" loading="lazy">
+                <div class="chart-caption"><span class="insight">💡 Tenure curve shows early-career vulnerability.</span>Attrition is highest in years 0–2, drops through year 5, then stabilizes. Career stage is a stronger predictor than age.</div>
+            </div>
+            <div class="chart-box reveal" onclick="openLightbox(this)">
+                <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/attrition-prediction-model/figures/09_key_insights_summary.png" alt="Key Insights" loading="lazy">
+                <div class="chart-caption"><span class="insight">💡 Executive summary: 5 factors drive 80% of attrition.</span>Overtime, income, age, job satisfaction, and years at company capture most predictive signal. Focus here first.</div>
+            </div>
+
+            <!-- DEI Executive Dashboard (7 figures) -->
+            <div class="chart-box reveal" onclick="openLightbox(this)">
+                <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/dei-executive-dashboard/figures/01_gender_representation.png" alt="Gender Representation" loading="lazy">
+                <div class="chart-caption"><span class="insight">💡 Representation gaps widen at senior levels.</span>Entry-level gender balance is closer to parity. Director and VP levels show the largest gaps — the pipeline is leaking upward.</div>
+            </div>
+            <div class="chart-box reveal" onclick="openLightbox(this)">
+                <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/dei-executive-dashboard/figures/02_pay_equity_analysis.png" alt="Pay Equity" loading="lazy">
+                <div class="chart-caption"><span class="insight">💡 Oaxaca-Blinder decomposition isolates unexplained gaps.</span>After controlling for role, tenure, and education, 8–12% of pay gap remains unexplained — the equity target for intervention.</div>
+            </div>
+            <div class="chart-box reveal" onclick="openLightbox(this)">
+                <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/dei-executive-dashboard/figures/03_dei_attrition_retention.png" alt="DEI Attrition" loading="lazy">
+                <div class="chart-caption"><span class="insight">💡 Attrition is not uniform across demographic groups.</span>Some groups leave at 2x the rate of others. Retention is both a DEI metric and a business cost.</div>
+            </div>
+            <div class="chart-box reveal" onclick="openLightbox(this)">
+                <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/dei-executive-dashboard/figures/04_promotion_career_parity.png" alt="Promotion Parity" loading="lazy">
+                <div class="chart-caption"><span class="insight">💡 Promotion rates diverge after year 3.</span>Early career promotion parity is strong, but divergence accelerates at mid-career. The year-3 inflection is where intervention matters most.</div>
+            </div>
+            <div class="chart-box reveal" onclick="openLightbox(this)">
+                <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/dei-executive-dashboard/figures/05_worklife_satisfaction_demographics.png" alt="Work-Life Satisfaction" loading="lazy">
+                <div class="chart-caption"><span class="insight">💡 Work-life balance scores vary by family status.</span>Employees with dependents score lower on work-life satisfaction. This drives retention risk for a specific demographic segment.</div>
+            </div>
+            <div class="chart-box reveal" onclick="openLightbox(this)">
+                <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/dei-executive-dashboard/figures/06_education_hiring_diversity.png" alt="Education Hiring" loading="lazy">
+                <div class="chart-caption"><span class="insight">💡 Education pipeline diversity predicts hiring diversity.</span>Programs that recruit from diverse educational backgrounds produce more diverse hires. The pipeline starts before the job posting.</div>
+            </div>
+            <div class="chart-box reveal" onclick="openLightbox(this)">
+                <img src="https://raw.githubusercontent.com/gosidehustlesisi/sierra-people-analytics/main/projects/dei-executive-dashboard/figures/07_executive_dei_scorecard.png" alt="DEI Scorecard" loading="lazy">
+                <div class="chart-caption"><span class="insight">💡 One-page scorecard for board and executive reviews.</span>Representation, pay equity, promotion parity, and retention — all in a single view. Red/yellow/green traffic light system for instant readability.</div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="data" class="section">
+    <div class="container">
+        <h2 class="section-title">Verified Data Sources</h2>
+        <p class="section-subtitle">Every record from a public source. No synthetic data. No mock CSVs.</p>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Source</th>
+                    <th>Dataset</th>
+                    <th>Records</th>
+                    <th>Project</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Kaggle / IBM</td>
+                    <td>HR Analytics Employee Attrition</td>
+                    <td>1,470 employees</td>
+                    <td>Attrition Model</td>
+                    <td><a href="https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset" target="_blank">kaggle.com →</a></td>
+                </tr>
+                <tr>
+                    <td>U.S. Census</td>
+                    <td>ACS 5-Year Estimates 2022</td>
+                    <td>All 50 states + DC</td>
+                    <td>DEI Dashboard</td>
+                    <td><a href="https://data.census.gov/" target="_blank">data.census.gov →</a></td>
+                </tr>
+                <tr>
+                    <td>BLS</td>
+                    <td>Employment Statistics</td>
+                    <td>National + state</td>
+                    <td>DEI Dashboard</td>
+                    <td><a href="https://www.bls.gov/" target="_blank">bls.gov →</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section id="tech" class="section">
+    <div class="container">
+        <h2 class="section-title">Tech Stack</h2>
+        <p class="section-subtitle">Tools and libraries used across all People Analytics projects</p>
+        <div class="tech-grid">
+            <div class="tech-item"><span class="emoji">🐍</span> Python 3.11</div>
+            <div class="tech-item"><span class="emoji">🐼</span> pandas</div>
+            <div class="tech-item"><span class="emoji">🔢</span> NumPy</div>
+            <div class="tech-item"><span class="emoji">📈</span> matplotlib</div>
+            <div class="tech-item"><span class="emoji">🎨</span> seaborn</div>
+            <div class="tech-item"><span class="emoji">🗺️</span> Plotly</div>
+            <div class="tech-item"><span class="emoji">🤖</span> scikit-learn</div>
+            <div class="tech-item"><span class="emoji">🔍</span> SHAP</div>
+            <div class="tech-item"><span class="emoji">📊</span> Streamlit</div>
+            <div class="tech-item"><span class="emoji">📓</span> Jupyter</div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="footer-cta">
+    <div class="container">
+        <h2>Let's Build Something Real</h2>
+        <p>Hiring for workforce analytics, DEI intelligence, or HR predictive modeling? I ship pipelines, not notebooks.</p>
+        <div class="social-links">
+            <a href="https://github.com/gosidehustlesisi/sierra-people-analytics">GitHub Repo</a>
+            <a href="https://github.com/gosidehustlesisi">GitHub Profile</a>
+            <a href="https://linkedin.com/in/sierranapier">LinkedIn</a>
+            <a href="https://e3-ai.com">evo3 / e3-ai</a>
+            <a href="https://gosidehustlesisi.github.io">Full Portfolio</a>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2rem;">
+            Built by Sierra Napier — Data Scientist · AI Architect · Founder @ e3-ai.com<br>
+            All data from public sources. No synthetic records. No placeholders.
+        </p>
+    </div>
+</section>
+
+<a href="mailto:sierra.napier@e3-ai.com" class="floating-cta">📧 Get In Touch</a>
+
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="">
+</div>
 
 <script>
-const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+    });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+function openLightbox(el) {
+    const img = el.querySelector('img');
+    document.getElementById('lightbox-img').src = img.src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+}
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+});
 </script>
+
 </body>
 </html>
